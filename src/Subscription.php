@@ -142,7 +142,20 @@ class Subscription extends Model
     {
         return $this->items()->where('stripe_plan', $plan)->firstOrFail();
     }
-
+    
+    /**
+     * Get the subscription item for the given plan, NULL if not found.
+     *
+     * @param  string  $plan
+     * @return \Laravel\Cashier\SubscriptionItem
+     *
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
+     */
+    public function findItem($plan)
+    {
+        return $this->items()->where('stripe_plan', $plan)->first();
+    }
+    
     /**
      * Determine if the subscription is active, on trial, or within its grace period.
      *
